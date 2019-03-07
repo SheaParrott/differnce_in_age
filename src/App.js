@@ -45,7 +45,11 @@ class App extends Component {
     birthDate
       ? new Date().toLocaleDateString().slice(4, 8) - birthDate.slice(0, 4)
       : null
-
+  // this is more accurate because it takes into consideration the months and days
+  Age = birthDate =>
+    birthDate
+      ? parseInt(new Date().toISOString().slice(0, 9)) - parseInt(birthDate)
+      : null
   render() {
     let year = this.state.patientProfile.birthDateC
       ? this.state.patientProfile.birthDateC
@@ -55,6 +59,7 @@ class App extends Component {
         <button onClick={this.changeState}>received data</button>
         <p>{year ? this.DifferenceOfYears(year) : null}</p>
         <h2>{year ? this.birthYear(year) : null}</h2>
+        <h5>{year ? this.Age(year) : null}</h5>
       </div>
     )
   }
